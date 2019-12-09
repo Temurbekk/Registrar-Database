@@ -3,13 +3,13 @@ package database;
 import java.sql.*;
 
 public class CreateTables  extends Main{
-	public static void createCoursesTable() throws Exception{
+	public void createCoursesTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-					"(CourseNumber INTEGER not NULL, " +
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS CoursesTable " +
+					"(CourseNumber INTEGER not NULL, " + //Primary Key
 	                   " CourseName VARCHAR(255), " + 
 	                   " CourseTitle VARCHAR(255), " + 
 	                   " CourseCredits INTEGER, " + 
@@ -18,33 +18,33 @@ public class CreateTables  extends Main{
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Courses Table Created!");}
 	}
 	
-	public static void createCourserequisitsTable() throws Exception{
+	public void createCourseRequisitesTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(CourseRequisitNumber INTEGER not NULL, " +
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS CourseRequisitesTable " +
+	                   "(CourseRequisitNumber INTEGER not NULL, " + //Primary Key
 	                   " CourseName VARCHAR(255), " + 
-	                   " CourseNumber VARCHAR(255), " +  
+	                   " CourseNumber VARCHAR(255), " +  //Foreign Key
 	                   " PRIMARY KEY ( CourseRequisitNumber ))" );
 			create.executeUpdate();
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Crouse Requisits Table Created!");}
 	}
 	
-	public static void createCourseOfferingsTable() throws Exception{
+	public void createCourseOfferingsTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(CourseOfferingNumber INTEGER not NULL, " +
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS CourseOfferingsTable " +
+	                   "(CourseOfferingNumber INTEGER not NULL, " + //Primary Key
 	                   " OfferingYear INTEGER, " + 
 	                   " Semester VARCHAR(255), " + 
 	                   " SectionNumber VARCHAR(255), " + 
@@ -54,34 +54,34 @@ public class CreateTables  extends Main{
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Course Offerings Table Created!");}
 	}
 	
-	public static void createCourseOfferingsTimingTable() throws Exception{
+	public void createCourseOfferingsTimingTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(CourseOfferingTimingNumber INTEGER not NULL, " +
-	                   " CourseOfferingNumber INTEGER, " + 
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS CourseOfferingsTimingTable " +
+	                   "(CourseOfferingTimingNumber INTEGER not NULL, " + //Primary Key
+	                   " CourseOfferingNumber INTEGER, " + //Foreign Key
 	                   " CourseTiming VARCHAR(255), " + 
 	                   " PRIMARY KEY ( CourseOfferingTimingNumber ))" );
 			create.executeUpdate();
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Course Offerings Timing Table Created!");}
 	}
 	
-	public static void createInstructorsTable() throws Exception{
+	public void createInstructorsTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(InstructorNumber INTEGER not NULL, " +
-	                   " CourseOfferingNumber VARCHAR(255), " + //foreign key
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS InstructorsTable " +
+	                   "(InstructorNumber INTEGER not NULL, " + //Primary Key
+	                   " CourseOfferingNumber VARCHAR(255), " + //Foreign key
 	                   " DepartmentName VARCHAR(255), " + 
 	                   " InstructorTitle VARCHAR(255), " +
 	                   " InstructorName VARCHAR(255), " +
@@ -90,60 +90,58 @@ public class CreateTables  extends Main{
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Instructors Table Created!");}
 	}
 	
-	public static void createStudentTable() throws Exception{
+	public void createStudentsTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(id INTEGER not NULL, " +
-	                   " first VARCHAR(255), " + 
-	                   " last VARCHAR(255), " + 
-	                   " age INTEGER, " + 
-	                   " PRIMARY KEY ( id ))" );
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS StudentTable " +
+	                   "(StudentID INTEGER not NULL, " + //Primary Key
+	                   " StudentName VARCHAR(255), " + 
+	                   " Program VARCHAR(255), " + 
+	                   " PRIMARY KEY ( StudentID ))" );
 			create.executeUpdate();
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Student Table Created!");}
 	}
 	
-	public static void createStudentGradeTable() throws Exception{
+	public void createStudentGradeTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(id INTEGER not NULL, " +
-	                   " first VARCHAR(255), " + 
-	                   " last VARCHAR(255), " + 
-	                   " age INTEGER, " + 
-	                   " PRIMARY KEY ( id ))" );
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS StudentGradeTable " +
+	                   "(StudentGradeID INTEGER not NULL, " +
+	                   " CourseNumber INTEGER, " + 
+	                   " CourseGrade VARCHAR(255), " + 
+	                   " StudentID INTEGER, " + //Foreign Key
+	                   " PRIMARY KEY ( StudentGradeID ))" );
 			create.executeUpdate();
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Student Grade Table Created!");}
 	}
 	
-	public static void createStudentEnrollmentCoursesTable() throws Exception{
+	public void createStudentEnrollmentCoursesTable() throws Exception{
 		try {
 			
 			Connection con = getConnection();
 			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(id INTEGER not NULL, " +
-	                   " first VARCHAR(255), " + 
-	                   " last VARCHAR(255), " + 
-	                   " age INTEGER, " + 
-	                   " PRIMARY KEY ( id ))" );
+			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS StudentEnrollmentCoursesTable " +
+	                   "(Enrolled INTEGER not NULL, " + //Primary Key(What is the type?)
+	                   " StudentID INTEGER, " + //Foreign Key
+	                   " Enrolled Courses VARCHAR(255), " + 
+	                   " PRIMARY KEY ( Enrolled ))" );
 			create.executeUpdate();
 		}catch(Exception err) {
 			System.out.println(err);
 		}
-		finally{System.out.println("Function has been completed");}
+		finally{System.out.println("Student Enrollment Courses Table Created!");}
 	}
 }

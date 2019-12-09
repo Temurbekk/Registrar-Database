@@ -6,71 +6,37 @@ import java.util.ArrayList;
 public class Main {
 
 	public static void main(String[] args) throws Exception{
-		// TODO Auto-generated method stub
-		createTable();
-		post();
-		get();
+		// We call the instance of CreateTable class
+		CreateTables create = new CreateTables();
+		
+		/*By calling these methods
+		 * We create empty tables with necessary attributes to enter later*/
+		
+		//Courses Table
+		create.createCoursesTable();
+		//Course Requisites Table
+		create.createCourseRequisitesTable();
+		//Course Offerings Table
+		create.createCourseOfferingsTable();
+		//Course Offerings Timing Table
+		create.createCourseOfferingsTimingTable();
+		//Course Instructor Table
+		create.createInstructorsTable();
+		//Students table
+		create.createStudentsTable();
+		//Student Grade Table
+		create.createStudentGradeTable();
+		//Student Enrollment Courses
+		create.createStudentEnrollmentCoursesTable();
+		
+		
+		//Insert Class helps us insert data into our database by choosing which table we want to insert the data to
+		InsertIntoTables insert = new InsertIntoTables();
+		
+		AccessDatabase access = new AccessDatabase();
 
 	}
-	
-	public static ArrayList<String> get() throws Exception{
-		try {
-			Connection con = getConnection();
-			PreparedStatement statement = con.prepareStatement("Select * FROM Registration");
-			ResultSet result = statement.executeQuery();
-			
-			ArrayList<String> array = new ArrayList<String>();
-			
-			while(result.next()) {
-				System.out.print(result.getString("first"));
-				System.out.print(" ");
-				System.out.print(result.getString("last"));
-				
-				array.add(result.getString("last"));
-			}
-			System.out.println(" ");
-			
-			System.out.println("All records have been selected");
-			return array;
-		}catch(Exception err) {
-			System.out.println(err);
-		}
-		return null;
-	}
-	
-	public static void post() throws Exception{
-		final String firstName = "John";
-		final String lastName = "Miller";
-		
-		try {
-			Connection con = getConnection();
-			PreparedStatement posted = con.prepareStatement("INSERT INTO Registration " +
-	                   "VALUES (100, '"+firstName+"', '"+lastName+"', 18)");
-			posted.executeUpdate();
-		}catch(Exception err) {
-			System.out.println(err);
-		}
-		finally {System.out.println("Insert Completed");}
-	}
-	
-	public static void createTable() throws Exception{
-		try {
-			
-			Connection con = getConnection();
-			
-			PreparedStatement create = con.prepareStatement("CREATE TABLE IF NOT EXISTS REGISTRATION " +
-	                   "(id INTEGER not NULL, " +
-	                   " first VARCHAR(255), " + 
-	                   " last VARCHAR(255), " + 
-	                   " age INTEGER, " + 
-	                   " PRIMARY KEY ( id ))" );
-			create.executeUpdate();
-		}catch(Exception err) {
-			System.out.println(err);
-		}
-		finally{System.out.println("Function has been completed");}
-	}
-	
+	//This static method helps connect our Java code with our MySQL database using Connector/J
 	public static Connection getConnection() throws Exception{
 		
 		String driver = "com.mysql.jdbc.Driver";
